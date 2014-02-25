@@ -1,0 +1,41 @@
+###############################################################################
+package org.jahia.modules.blogimagescaling.rules
+
+#list any import classes here.
+import org.jahia.services.content.rules.*
+import org.slf4j.Logger
+
+expander rules.dsl
+
+#declare any global variables here
+global User user
+global Service service
+global ImageService imageService
+global ExtractionService extractionService
+global Logger logger
+###############################################################################
+
+
+rule "Blog Image Scaling - 800px"
+    salience 25
+    when
+        A file content has been modified
+             - the mimetype matches image/.*
+    then
+        > long timer = System.currentTimeMillis();
+        Create an image "800px" of size 800
+        Dispose image
+        Log "Blog Image Scaling 800px : Image " + node.getPath() + " updated in " + (System.currentTimeMillis() - timer) + " ms"
+end
+
+rule "Blog Image Scaling - square 120px"
+    salience 25
+    when
+        A file content has been modified
+             - the mimetype matches image/.*
+    then
+        > long timer = System.currentTimeMillis();
+        > imageService.addThumbnail(node, "sq120px", 120, true, drools);
+        Dispose image
+        Log "Blog Image Scaling square 120px : Image " + node.getPath() + " updated in " + (System.currentTimeMillis() - timer) + " ms"
+end
