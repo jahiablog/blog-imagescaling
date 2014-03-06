@@ -17,7 +17,6 @@ global Logger logger
 
 
 rule "Blog Image Scaling - 800px"
-    salience 25
     when
         A file content has been modified
              - the mimetype matches image/.*
@@ -29,7 +28,6 @@ rule "Blog Image Scaling - 800px"
 end
 
 rule "Blog Image Scaling - square 120px"
-    salience 25
     when
         A file content has been modified
              - the mimetype matches image/.*
